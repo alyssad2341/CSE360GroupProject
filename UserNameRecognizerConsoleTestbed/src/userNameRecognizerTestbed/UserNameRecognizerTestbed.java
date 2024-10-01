@@ -1,5 +1,7 @@
 package userNameRecognizerTestbed;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*******
@@ -15,7 +17,132 @@ import java.util.Scanner;
  * 					Recognizer testbed
  * 
  */
+// Suyoung edited this part if need please edit it further
+class User{
+	private String userName;
+    private String email;
+    private SecurePassword password;
+    private String firstName;
+    private String middleName; //idk about needing middle name tho
+    private String lastName;
+    private String preferredFirstName;
+    private List<Role> roles;
+    private boolean firstLogin;
+    
+    public User(String userName, String email, SecurePassword password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.roles = new ArrayList<>();
+        this.firstLogin = true;
+        public void login() {
+            Scanner sc = new Scanner(System.in);
 
+            // If it's their first login, create an admin account and then redirect to login
+            if (firstLogin) {
+                System.out.println("First-time login detected. Creating admin account...");
+                roles.add(Role.ADMIN);  // Add admin role for the first-time user
+                firstLogin = false;
+                System.out.println("Admin account created. Redirecting to login.");
+            }
+            
+            System.out.println("Please enter your username:");
+            String enteredUserName = sc.nextLine();
+            System.out.println("Please enter your invitation code:");
+            String invitationCode = sc.nextLine();  // You can add validation for this code later
+
+            if (enteredUserName.equals(this.userName)) {
+                System.out.println("Login successful!");
+            } else {
+                System.out.println("Invalid username or invitation code.");
+            }
+        }
+
+        // Finish account setup method
+        public void finishAccountSetup() {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Please enter your first name:");
+            this.firstName = sc.nextLine();
+            
+            System.out.println("Please enter your middle name:");
+            this.middleName = sc.nextLine();
+            
+            System.out.println("Please enter your last name:");
+            this.lastName = sc.nextLine();
+            
+            System.out.println("Please enter your preferred first name:");
+            this.preferredFirstName = sc.nextLine();
+            
+            System.out.println("Account setup completed.");
+        }
+
+        // Getters and Setters for each field
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public SecurePassword getPassword() {
+            return password;
+        }
+
+        public void setPassword(SecurePassword password) {
+            this.password = password;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getMiddleName() {
+            return middleName;
+        }
+
+        public void setMiddleName(String middleName) {
+            this.middleName = middleName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getPreferredFirstName() {
+            return preferredFirstName;
+        }
+
+        public void setPreferredFirstName(String preferredFirstName) {
+            this.preferredFirstName = preferredFirstName;
+        }
+
+        public List<Role> getRoles() {
+            return roles;
+        }
+
+        public void addRole(Role role) {
+            this.roles.add(role);
+        }
+    }
+}
 public class UserNameRecognizerTestbed{
 	
 	static String inputLine;
